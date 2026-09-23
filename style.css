@@ -1,0 +1,341 @@
+:root {
+    --bg-color: #fdfaf5;
+    --text-dark: #3a2e28;
+    --primary-green: #295b36;
+    --primary-red: #c22929;
+    --paper-shadow: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.25));
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Lora', serif;
+    color: var(--text-dark);
+    overflow-x: hidden;
+}
+
+/* --- Hindi Font Override & Size Increase (+2 points) --- */
+html.hindi-font {
+    font-size: 18px; /* Default browser text is 16px. This bumps EVERYTHING up by 2px */
+}
+
+html.hindi-font body {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+}
+
+/* --- Static Background & Animal Animations --- */
+.static-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    background-color: var(--bg-color); 
+}
+
+.bg-frame {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.bg-animal {
+    position: absolute;
+    opacity: 0; /* Hidden by default */
+    z-index: 2;
+    filter: var(--paper-shadow);
+    transition: opacity 1.5s ease, transform 1.5s ease; 
+}
+
+/* Starting positions (slightly offset so they "slide" into place) */
+.anim-bird { top: 15%; left: 5%; width: 200px; height: auto; transform: translateX(-20px); }
+.anim-squirrel { top: 20%; right: 5%; width: 220px; height: auto; transform: translateY(20px); }
+
+/* When the user clicks YES, this class is added to the body */
+.show-animals .bg-animal {
+    opacity: 1;
+    transform: translate(0, 0); 
+}
+
+/* --- Layout & Sections --- */
+.scroll-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.view-section {
+    display: none;
+    min-height: 100vh;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.view-section.active { display: flex; }
+
+/* Paper Card Style */
+.paper-card {
+    background-color: rgba(253, 250, 245, 0.95);
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border: 1px solid rgba(0,0,0,0.05);
+    backdrop-filter: blur(5px);
+    max-width: 500px;
+    width: 90%;
+    margin-bottom: 20px;
+}
+
+/* --- Language Page --- */
+#lang-page .lang-box {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin: 15px;
+}
+#lang-page .lang-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+/* --- Compact Single Tile Layout Adjustments --- */
+/* --- Compact Single Tile Layout Adjustments --- */
+.compact-layout { margin-top: 5vh; }
+
+.title-block { 
+    margin-bottom: 20px; 
+    width: 100%;
+    /* Forces the image to be perfectly centered */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 20% Larger Title Image */
+.title-img {
+    max-width: 290px; /* Was 242px (+20%) */
+    height: auto;
+    width: 100%;
+    filter: var(--paper-shadow);
+    margin-bottom: 0;
+}
+
+.event-tile {
+    padding: 20px 25px;
+    max-width: 480px;
+    margin: 0 auto; /* Ensures the white card is also perfectly centered */
+}
+
+/* --- Mobile adjustments for the larger title --- */
+@media (max-width: 600px) {
+    .title-img { 
+        max-width: 240px; /* Was 198px (+20%) */
+    }
+    .event-tile { padding: 15px; width: 92%; }
+    .btn { padding: 10px; font-size: 0.9rem; }
+    .action-buttons { flex-direction: row; }
+    .anim-bird { width: 120px; top: 10%; }
+    .anim-squirrel { width: 140px; top: 12%; right: 2%; }
+}
+/* --- Multi-Event Selection Styles (Card Layout) --- */
+.instruction-text {
+    font-size: 1rem;
+    color: var(--primary-green);
+    margin-bottom: 15px;
+    text-align: left;
+    width: 100%;
+}
+
+.event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+/* The Event Card Container */
+.event-checkbox {
+    display: flex;
+    align-items: flex-start; /* Aligns checkbox to top-left */
+    text-align: left; /* Forces text to align left */
+    background: rgba(255, 255, 255, 0.7);
+    border: 2px solid rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    transition: all 0.2s ease;
+}
+
+/* Hover Effect for Card */
+.event-checkbox:hover {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Highlights the entire card border green when checked! */
+.event-checkbox:has(input:checked) {
+    border-color: var(--primary-green);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+/* The Checkbox Itself */
+.event-checkbox input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    margin-right: 15px;
+    margin-top: 3px; 
+    accent-color: var(--primary-green); /* Checkbox color */
+    cursor: pointer;
+    flex-shrink: 0; 
+}
+
+/* The Text Container */
+.event-details {
+    display: block;
+    width: 100%;
+}
+
+/* Larger Event Title */
+.event-details strong {
+    display: block;
+    font-size: 1.25rem; 
+    color: var(--primary-red); 
+    margin-bottom: 4px;
+    line-height: 1.1;
+}
+
+.event-details span {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    line-height: 1.4;
+}
+
+/* --- Inline Venues & Edit Button --- */
+.event-venue {
+    font-size: 0.85rem;
+    color: var(--primary-green);
+    font-weight: 600;
+    margin-top: 3px;
+    display: inline-block;
+}
+
+.event-map-link {
+    font-size: 0.8rem;
+    color: #0066cc;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.event-map-link:hover { text-decoration: underline; }
+
+/* Dividers */
+.dashed-divider {
+    border: 0;
+    border-top: 1px dashed rgba(0,0,0,0.15);
+    margin: 15px 0;
+}
+
+/* Actions block */
+.rsvp-actions-block h3 { margin-bottom: 10px; font-size: 1.1rem; }
+.action-buttons { display: flex; gap: 10px; justify-content: center; }
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: none;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+}
+.yes-btn { background-color: var(--primary-green); color: white; }
+.no-btn { background-color: transparent; border: 2px solid #ccc; color: #666; }
+.yes-btn:hover { background-color: #1f4728; }
+.no-btn:hover { border-color: var(--text-dark); color: var(--text-dark); }
+.submit-btn { background-color: var(--primary-red); color: white; width: 100%; margin-top: 15px;}
+
+.edit-btn {
+    background-color: transparent;
+    border: 2px solid var(--primary-green);
+    color: var(--primary-green);
+    margin-top: 15px;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    width: auto;
+}
+.edit-btn:hover { background-color: var(--primary-green); color: white; }
+
+/* Forms */
+.hidden { display: none !important; }
+form { margin-top: 15px; text-align: left; }
+.input-group { margin-bottom: 10px; }
+.row { display: flex; gap: 15px; width: 100%; }
+.half { 
+    flex: 1; 
+    min-width: 0; /* CRITICAL FIX: Forces inputs to shrink and stay inside the box */
+}
+label { display: block; margin-bottom: 5px; font-size: 0.85rem; font-weight: 600; color: var(--primary-green); }
+input, textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: rgba(255,255,255,0.8);
+    font-family: inherit;
+    color: var(--text-dark);
+}
+input:focus, textarea:focus { outline: none; border-color: var(--primary-green); box-shadow: 0 0 5px rgba(41, 91, 54, 0.3); }
+input[type="date"], input[type="time"] { cursor: pointer; }
+
+.thank-you-text { color: var(--primary-green); margin-top: 10px;}
+.scroll-padding { height: 10vh; } 
+
+/* --- Mobile adjustments --- */
+@media (max-width: 600px) {
+    .row { gap: 8px; } /* Shrinks the space between the two boxes on phones */
+    
+    .title-img { max-width: 240px; }
+    .event-tile { padding: 15px; width: 92%; }
+    .btn { padding: 10px; font-size: 0.9rem; }
+    .action-buttons { flex-direction: row; }
+}
+/* --- Liquid Glass Background Panel --- */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.4); /* Semi-transparent white */
+    backdrop-filter: blur(12px);          /* The frosted glass effect */
+    -webkit-backdrop-filter: blur(12px);  /* For Safari */
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border-radius: 24px;
+    padding: 30px 15px;
+    width: 95%;
+    max-width: 550px;
+    margin: 5vh auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Fix spacing inside the glass panel */
+.compact-layout { margin-top: 0; width: 100%; }
+
+/* The new standalone Thank You screen */
+#thank-you-section {
+    margin: 30vh auto 0 auto; /* Pushes it perfectly to the center of the screen */
+    text-align: center;
+    max-width: 400px;
+}

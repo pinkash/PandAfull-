@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praful Weds Ananya - RSVP</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts for English and Hindi -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- GSAP for Scroll Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+   <!-- Static Background & Surprise Elements -->
+    <div class="static-bg">
+        <img src="assets/frame-base.png" class="bg-frame" alt="">
+        <!-- These are hidden by default and will appear on YES -->
+        <img src="assets/bird.png" class="bg-animal anim-bird" alt="">
+        <img src="assets/squirrel.png" class="bg-animal anim-squirrel" alt="">
+    </div>
+    <!-- Scrollable Content -->
+    <div class="scroll-container">
+        
+        <!-- PAGE 1: Language Selection -->
+        <section id="lang-page" class="view-section active">
+            <!-- English Selection Tile -->
+            <div class="lang-box paper-card" onclick="selectLanguage('en')">
+                <h2>Praful Weds Ananya</h2>
+                <p>(Select for English)</p>
+            </div>
+            
+           <!-- Hindi Selection Tile -->
+            <div class="lang-box paper-card" onclick="selectLanguage('hi')">
+                <h2 style="font-family: 'Noto Sans Devanagari', sans-serif; font-weight: 700; font-size: 26px;">प्रफुल और अनन्या का विवाह</h2>
+                <p style="font-family: 'Noto Sans Devanagari', sans-serif; font-size: 18px; margin-top: 5px;">(हिंदी के लिए चयन करें)</p>
+            </div>
+        </section>
+       <!-- PAGE 2: Main Event & RSVP -->
+        <section id="invite-page" class="view-section hidden">
+            
+            <!-- NEW: Liquid Glass Panel -->
+            <div id="glass-panel" class="glass-panel">
+                <div class="content-wrapper compact-layout">
+                    
+                    <!-- Headers -->
+                    <div class="title-block">
+                        <div id="text-title" class="main-title"></div>
+                    </div>
+
+                    <!-- Combined Event Tile -->
+                    <div class="event-tile paper-card">
+                        
+                        <h3 id="text-select-events" class="instruction-text">Please select the events you will attend:</h3>
+                        
+                        <!-- Events Checkbox List -->
+                        <div class="event-list">
+                            <!-- Haldi -->
+                            <label class="event-checkbox">
+                                <input type="checkbox" id="chk-haldi" value="Haldi">
+                                <span class="event-details">
+                                    <strong id="title-haldi">Haldi</strong><br>
+                                    <span id="time-haldi">Nov 20 | 10:00 AM (Followed by Lunch)</span><br>
+                                    <span id="venue-haldi" class="event-venue">📍 Pandharinath Niwas</span>
+                                    <a href="https://maps.app.goo.gl/pDrFw4d2A7wWwE4Y9" target="_blank" class="event-map-link map-txt" onclick="event.stopPropagation()">(View Map)</a>
+                                </span>
+                            </label>
+                            
+                            <!-- Sangeet -->
+                            <label class="event-checkbox">
+                                <input type="checkbox" id="chk-sangeet" value="Sangeet">
+                                <span class="event-details">
+                                    <strong id="title-sangeet">Sangeet</strong><br>
+                                    <span id="time-sangeet">Nov 20 | 6:00 PM (Followed by Dinner)</span><br>
+                                    <span id="venue-sangeet" class="event-venue">📍 Pandharinath Niwas</span>
+                                    <a href="https://maps.app.goo.gl/pDrFw4d2A7wWwE4Y9" target="_blank" class="event-map-link map-txt" onclick="event.stopPropagation()">(View Map)</a>
+                                </span>
+                            </label>
+                            
+                            <!-- Vivaah -->
+                            <label class="event-checkbox">
+                                <input type="checkbox" id="chk-vivaah" value="Vivaah Sanskar" checked>
+                                <span class="event-details">
+                                    <strong id="title-vivaah">Vivaah Sanskar</strong><br>
+                                    <span id="time-vivaah">Nov 21 | 11:00 AM (Followed by Lunch)</span><br>
+                                    <span id="venue-vivaah" class="event-venue">📍 Lamba Celebrations</span>
+                                    <a href="https://maps.app.goo.gl/FK1QgVGrqkRtUFMz9" target="_blank" class="event-map-link map-txt" onclick="event.stopPropagation()">(View Map)</a>
+                                </span>
+                            </label>
+                            
+                            <!-- Sneh Milan -->
+                            <label class="event-checkbox">
+                                <input type="checkbox" id="chk-sneh" value="Sneh Milan">
+                                <span class="event-details">
+                                    <strong id="title-sneh">Sneh Milan</strong><br>
+                                    <span id="time-sneh">Nov 22 | All Day</span><br>
+                                    <span id="venue-sneh" class="event-venue">📍 Pandharinath Niwas</span>
+                                    <a href="https://maps.app.goo.gl/pDrFw4d2A7wWwE4Y9" target="_blank" class="event-map-link map-txt" onclick="event.stopPropagation()">(View Map)</a>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <hr class="dashed-divider">
+
+                        <!-- RSVP Actions -->
+                        <div id="rsvp-actions" class="rsvp-actions-block">
+                            <div class="action-buttons">
+                                <button onclick="handleRSVP('yes')" class="btn yes-btn" id="btn-yes">Yes, I'll attend</button>
+                                <button onclick="handleRSVP('no')" class="btn no-btn" id="btn-no">No, I won't attend</button>
+                            </div>
+                        </div>
+
+                        <!-- Hidden Form -->
+                        <form id="rsvp-form" class="hidden">
+                            <div class="input-group">
+                                <label id="label-name">Full Name</label>
+                                <input type="text" id="guest-name" required>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="input-group half">
+                                    <label id="label-arr-date">Arrival Date</label>
+                                    <input type="date" id="arrival-date" required>
+                                </div>
+                                <div class="input-group half">
+                                    <label id="label-arr-time">Arrival Time</label>
+                                    <input type="time" id="arrival-time" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="input-group half">
+                                    <label id="label-adults">Adults</label>
+                                    <input type="number" id="adults" min="1" value="1" required>
+                                </div>
+                                <div class="input-group half">
+                                    <label id="label-child">Children</label>
+                                    <input type="number" id="children" min="0" value="0" required>
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label id="label-req">Special requests (Travel, Acco, Food)</label>
+                                <textarea id="special-requests" rows="2"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn submit-btn" id="btn-submit">Submit Details</button>
+                        </form>
+                    </div>
+                </div>
+            </div> <!-- End Glass Panel -->
+
+            <!-- NEW: Clean Ending Screen (Hidden by default) -->
+            <div id="thank-you-section" class="paper-card hidden">
+                <h3 id="text-thank-you" class="thank-you-text">We will look forward to meeting you soon.</h3>
+                <button onclick="resetRSVP()" class="btn edit-btn" id="btn-edit">Change Response</button>
+            </div>
+            
+            <div class="scroll-padding"></div>
+        </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
