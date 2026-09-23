@@ -115,7 +115,7 @@ html.hindi-font body {
 .compact-layout { margin-top: 5vh; }
 
 .title-block { 
-    margin-bottom: 20px; 
+    margin-bottom: 5px; /* REDUCED from 20px to close the gap */
     width: 100%;
     /* Forces the image to be perfectly centered */
     display: flex;
@@ -123,9 +123,9 @@ html.hindi-font body {
     align-items: center;
 }
 
-/* 20% Larger Title Image */
+/* Increased Title Image Size (+20%) */
 .title-img {
-    max-width: 290px; /* Was 242px (+20%) */
+    max-width: 348px; /* INCREASED from 290px */
     height: auto;
     width: 100%;
     filter: var(--paper-shadow);
@@ -140,23 +140,14 @@ html.hindi-font body {
 
 /* --- Mobile adjustments for the larger title --- */
 @media (max-width: 600px) {
-    .row { 
-    display: flex; 
-    gap: 10px; 
-    width: 100%; }
-    
-    /* Tighter gap for small phones */
-    
-    /* Shrink the input text slightly on mobile so the Apple Date string fits */
-    input, textarea, select {
-        font-size: 0.85rem; 
-        padding: 8px 4px; /* Less horizontal padding */
+    .title-img { 
+        max-width: 240px; /* Was 198px (+20%) */
     }
-
-    .title-img { max-width: 240px; }
     .event-tile { padding: 15px; width: 92%; }
     .btn { padding: 10px; font-size: 0.9rem; }
     .action-buttons { flex-direction: row; }
+    .anim-bird { width: 120px; top: 10%; }
+    .anim-squirrel { width: 140px; top: 12%; right: 2%; }
 }
 /* --- Multi-Event Selection Styles (Card Layout) --- */
 .instruction-text {
@@ -321,9 +312,17 @@ input[type="date"], input[type="time"] { cursor: pointer; }
 
 /* --- Mobile adjustments --- */
 @media (max-width: 600px) {
-    .row { gap: 8px; } /* Shrinks the space between the two boxes on phones */
+    .row { gap: 6px; } 
     
-    .title-img { max-width: 240px; }
+    input, textarea, select {
+        font-size: 0.85rem; 
+        padding: 8px 4px; 
+    }
+
+    .title-img { 
+        max-width: 288px; /* INCREASED from 240px for mobile */
+    }
+    
     .event-tile { padding: 15px; width: 92%; }
     .btn { padding: 10px; font-size: 0.9rem; }
     .action-buttons { flex-direction: row; }
