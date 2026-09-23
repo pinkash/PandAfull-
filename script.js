@@ -31,7 +31,7 @@ const translations = {
         lblChild: "Children",
         lblReq: "Special requests (Travel, Accommodation, Food)",
         btnSubmit: "Submit Details",
-        thankYouNo: "Thank You!.",
+        thankYouNo: "Thank You!",
         thankYouYes: "Thank you! Your RSVP has been received."
     },
     hi: {
